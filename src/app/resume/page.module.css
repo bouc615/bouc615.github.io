@@ -1,0 +1,59 @@
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.timeline {
+  border-left: 2px solid var(--border);
+  padding-left: 2rem;
+  margin-left: 1rem;
+}
+
+.item {
+  position: relative;
+  margin-bottom: 3rem;
+}
+
+.timelinePoint {
+  position: absolute;
+  left: -2.6rem; /* Adjust based on padding/border */
+  top: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--primary);
+  border-radius: 50%;
+  border: 4px solid var(--background); /* Create gap effect */
+}
+
+.content h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.role {
+  font-weight: 400;
+  color: var(--muted);
+  margin-left: 0.5rem;
+}
+
+.meta {
+  font-size: 0.9rem;
+  color: var(--muted);
+  float: right;
+  margin-top: -1.5rem; /* Align with title roughly */
+}
+
+.location {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .meta {
+    float: none;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+}

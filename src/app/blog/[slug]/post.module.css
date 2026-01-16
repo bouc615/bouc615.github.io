@@ -1,0 +1,57 @@
+.article {
+  margin-top: 2rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.date {
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+
+.content {
+  line-height: 1.8;
+}
+
+.content h2 {
+  margin-top: 2rem;
+  font-size: 1.5rem;
+}
+
+.content p {
+  margin-bottom: 1.5rem;
+}
+
+.content ul,
+.content ol {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.content li {
+  margin-bottom: 0.5rem;
+}
+
+.content pre {
+  background-color: var(--border);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+  font-family: inherit; /* Use global mono font */
+}
+
+.content code {
+  background-color: var(--border);
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+}
+
+.content pre code {
+  background-color: transparent;
+  padding: 0;
+}
