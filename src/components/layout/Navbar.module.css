@@ -1,9 +1,18 @@
 .header {
+  position: sticky;
+  top: 1rem;
+  z-index: 50;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem 0;
-  margin-bottom: 2rem;
+  padding: 1rem 1.5rem;
+  margin-bottom: 3rem;
+  background: rgba(var(--background-rgb), 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(var(--foreground-rgb), 0.1);
+  border-radius: 9999px;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
 }
 
 .logoContainer {

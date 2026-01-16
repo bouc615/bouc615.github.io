@@ -10,8 +10,32 @@ export interface PostData {
   id: string;
   date: string;
   title: string;
+  category?: string;
   contentHtml?: string;
   [key: string]: any;
+}
+
+// Helper to recursively get all markdown files
+function getAllMarkdownFiles(
+  dirPath: string,
+  fileList: string[] = []
+): string[] {
+  const files = fs.readdirSync(dirPath);
+
+  files.forEach((file) => {
+    const filePath = path.join(dirPath, file);
+    const stat = fs.statSync(filePath);
+
+    if (stat.isDirectory()) {
+      getAllMarkdownFiles(filePath, fileList);
+    } else {
+      if (file.endsWith(".md")) {
+        fileList.push(filePath);
+      }
+    }
+  });
+
+  return fileList;
 }
 
 export function getSortedPostsData() {
@@ -20,24 +44,34 @@ export function getSortedPostsData() {
     return [];
   }
 
-  const fileNames = fs.readdirSync(postsDirectory);
-  const allPostsData = fileNames.map((fileName) => {
-    // Remove ".md" from file name to get id
-    const id = fileName.replace(/\.md$/, "");
+  const allFiles = getAllMarkdownFiles(postsDirectory);
 
+  const allPostsData = allFiles.map((fullPath) => {
     // Read markdown file as string
-    const fullPath = path.join(postsDirectory, fileName);
     const fileContents = fs.readFileSync(fullPath, "utf8");
 
     // Use gray-matter to parse the post metadata section
     const matterResult = matter(fileContents);
 
+    // Get id from filename (without extension)
+    // We assume filenames are unique across folders for simplicity
+    const id = path.basename(fullPath, ".md");
+
+    // Automatically determine category from folder name if not specified
+    const relativePath = path.relative(postsDirectory, fullPath);
+    const folderCategory = path.dirname(relativePath);
+    const category =
+      matterResult.data.category ||
+      (folderCategory !== "." ? capitalize(folderCategory) : "General");
+
     // Combine the data with the id
     return {
       id,
+      category,
       ...(matterResult.data as { date: string; title: string }),
     };
   });
+
   // Sort posts by date
   return allPostsData.sort((a, b) => {
     if (a.date < b.date) {
@@ -48,8 +82,19 @@ export function getSortedPostsData() {
   });
 }
 
+function capitalize(s: string) {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
 export async function getPostData(id: string) {
-  const fullPath = path.join(postsDirectory, `${id}.md`);
+  // We need to find the file because it could be in any subdirectory
+  const allFiles = getAllMarkdownFiles(postsDirectory);
+  const fullPath = allFiles.find((file) => path.basename(file, ".md") === id);
+
+  if (!fullPath) {
+    throw new Error(`Post not found: ${id}`);
+  }
+
   const fileContents = fs.readFileSync(fullPath, "utf8");
 
   // Use gray-matter to parse the post metadata section
@@ -61,10 +106,18 @@ export async function getPostData(id: string) {
     .process(matterResult.content);
   const contentHtml = processedContent.toString();
 
+  // Determine category
+  const relativePath = path.relative(postsDirectory, fullPath);
+  const folderCategory = path.dirname(relativePath);
+  const category =
+    matterResult.data.category ||
+    (folderCategory !== "." ? capitalize(folderCategory) : "General");
+
   // Combine the data with the id and contentHtml
   return {
     id,
     contentHtml,
+    category,
     ...(matterResult.data as { date: string; title: string }),
   };
 }

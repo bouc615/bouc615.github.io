@@ -1,23 +1,26 @@
 .hero {
   display: flex;
   align-items: center;
-  gap: 2rem;
-  margin-bottom: 3rem;
+  gap: 2.5rem;
+  margin-bottom: 4rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--border);
+  animation: fadeIn 0.8s ease-out;
 }
 
 .avatar {
-  width: 120px;
-  height: 120px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   overflow: hidden;
-  background-color: var(--border);
+  border: 4px solid var(--background);
+  box-shadow: 0 0 0 2px var(--border);
   flex-shrink: 0;
+  transition: transform 0.3s ease;
 }
 
-.avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.avatar:hover {
+  transform: rotate(5deg) scale(1.05);
 }
 
 .heroContent {
@@ -25,46 +28,105 @@
 }
 
 .title {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+  font-size: 3.5rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.05em;
+  line-height: 1.1;
+}
+
+.tagline {
+  font-size: 1.25rem;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+  font-weight: 300;
 }
 
 .socials {
   display: flex;
-  gap: 1.5rem;
-  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .socialLink {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-  font-weight: 700;
-  text-decoration: none;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--border);
+  color: var(--foreground);
+  transition: all 0.2s ease;
 }
 
 .socialLink:hover {
-  text-decoration: underline;
+  background-color: var(--primary);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.3);
 }
 
 .bio {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   line-height: 1.8;
   color: var(--foreground);
+  max-width: 65ch;
+  margin-bottom: 2rem;
+  animation: slideUp 0.8s ease-out 0.2s both;
 }
 
-.bio p {
+.sectionTitle {
+  font-size: 2rem;
   margin-bottom: 1.5rem;
+  position: relative;
+  display: inline-block;
+  animation: slideUp 0.8s ease-out 0.4s both;
+}
+
+.sectionTitle::after {
+  content: "";
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background-color: var(--secondary);
+  opacity: 0.3;
+  z-index: -1;
+  transform: skewX(-15deg);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 600px) {
   .hero {
     flex-direction: column;
     text-align: center;
+    gap: 1.5rem;
   }
 
   .socials {
     justify-content: center;
+  }
+
+  .title {
+    font-size: 2.5rem;
   }
 }

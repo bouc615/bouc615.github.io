@@ -1,16 +1,22 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --background-rgb: 255, 255, 255;
+  --foreground-rgb: 23, 23, 23;
   --primary: #9333ea; /* Purple */
   --secondary: #22c55e; /* Green */
   --muted: #737373;
+  --primary-rgb: 147, 51, 234;
   --border: #e5e5e5;
 }
 
 [data-theme="dark"] {
   --background: #0a0a0a;
   --foreground: #ededed;
+  --background-rgb: 10, 10, 10;
+  --foreground-rgb: 237, 237, 237;
   --primary: #a855f7;
+  --primary-rgb: 168, 85, 247;
   --secondary: #4ade80;
   --muted: #a3a3a3;
   --border: #262626;

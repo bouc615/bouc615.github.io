@@ -1,8 +1,12 @@
 import styles from "./page.module.css";
 import { Github, Twitter, Linkedin, Mail } from "lucide-react";
 import Link from "next/link";
+import { getSortedPostsData } from "@/lib/posts";
+import HomePosts from "@/components/home/HomePosts";
 
 export default function Home() {
+  const allPosts = getSortedPostsData();
+
   return (
     <div>
       <section className={styles.hero}>
@@ -12,28 +16,45 @@ export default function Home() {
             style={{
               width: "100%",
               height: "100%",
-              background: "linear-gradient(45deg, #ccc, #999)",
+              background:
+                "linear-gradient(45deg, var(--secondary), var(--primary))",
             }}
           />
         </div>
         <div className={styles.heroContent}>
-          <h1 className={styles.title}>Hi I'm Bouc!</h1>
+          <h1 className={styles.title}>
+            Hi I&apos;m{" "}
+            <span
+              style={{
+                background:
+                  "linear-gradient(to right, var(--primary), var(--secondary))",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              Bouc
+            </span>
+            !
+          </h1>
+          <p className={styles.tagline}>
+            Developer, Writer, & Open Source Enthusiast.
+          </p>
           <div className={styles.socials}>
             <Link
               href="https://github.com/bouc615"
               target="_blank"
               className={styles.socialLink}
             >
-              <Github size={20} /> GitHub
+              <Github size={20} />
             </Link>
             <Link href="#" className={styles.socialLink}>
-              <Twitter size={20} /> Twitter
+              <Twitter size={20} />
             </Link>
             <Link href="#" className={styles.socialLink}>
-              <Linkedin size={20} /> LinkedIn
+              <Linkedin size={20} />
             </Link>
             <Link href="mailto:email@example.com" className={styles.socialLink}>
-              <Mail size={20} /> Email
+              <Mail size={20} />
             </Link>
           </div>
         </div>
@@ -41,26 +62,16 @@ export default function Home() {
 
       <section className={styles.bio}>
         <p>
-          I'm a developer passionate about open source and building cool things.
-          This is my personal blog where I share my thoughts and projects.
-        </p>
-        <p>
-          Currently, I'm focusing on web development, AI agents, and system
-          design. I enjoy solving complex problems and learning new
-          technologies.
-        </p>
-        <p>
-          Feel free to check out my{" "}
-          <Link href="/blog" style={{ textDecoration: "underline" }}>
-            blog
-          </Link>{" "}
-          or{" "}
-          <Link href="/resume" style={{ textDecoration: "underline" }}>
-            résumé
-          </Link>
-          .
+          Welcome to my digital garden. Here I share my experiments with web
+          development, AI agents, and system design. Stick around to learn
+          something new!
         </p>
       </section>
+
+      <div style={{ marginTop: "3rem" }}>
+        <h2 className={styles.sectionTitle}>Latest Writings</h2>
+        <HomePosts posts={allPosts} />
+      </div>
     </div>
   );
 }
