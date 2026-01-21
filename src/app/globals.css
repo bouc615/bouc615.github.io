@@ -1,25 +1,42 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --background-rgb: 255, 255, 255;
-  --foreground-rgb: 23, 23, 23;
-  --primary: #9333ea; /* Purple */
-  --secondary: #22c55e; /* Green */
-  --muted: #737373;
-  --primary-rgb: 147, 51, 234;
-  --border: #e5e5e5;
+  /* Dark theme as default */
+  --background: #1a1d23;
+  --foreground: #e5e7eb;
+  --background-rgb: 26, 29, 35;
+  --foreground-rgb: 229, 231, 235;
+  --primary: #a855f7;
+  --secondary: #10b981;
+  --accent: #22d3ee;
+  --muted: #9ca3af;
+  --primary-rgb: 168, 85, 247;
+  --border: #374151;
+}
+
+/* Keep light theme variables for potential future use */
+[data-theme="light"] {
+  --background: #f5f5f5;
+  --foreground: #2a2d32;
+  --background-rgb: 245, 245, 245;
+  --foreground-rgb: 42, 45, 50;
+  --primary: #a855f7;
+  --secondary: #10b981;
+  --accent: #22d3ee;
+  --muted: #6b7280;
+  --primary-rgb: 168, 85, 247;
+  --border: #e5e7eb;
 }
 
 [data-theme="dark"] {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --background-rgb: 10, 10, 10;
-  --foreground-rgb: 237, 237, 237;
+  --background: #1a1d23;
+  --foreground: #e5e7eb;
+  --background-rgb: 26, 29, 35;
+  --foreground-rgb: 229, 231, 235;
   --primary: #a855f7;
   --primary-rgb: 168, 85, 247;
-  --secondary: #4ade80;
-  --muted: #a3a3a3;
-  --border: #262626;
+  --secondary: #10b981;
+  --accent: #22d3ee;
+  --muted: #9ca3af;
+  --border: #374151;
 }
 
 * {
@@ -34,7 +51,11 @@ body {
   overflow-x: hidden;
   background-color: var(--background);
   color: var(--foreground);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+  font-family: "IBM Plex Mono", monospace;
+  letter-spacing: -0.01em;
 }
 
 a {
@@ -44,9 +65,21 @@ a {
 
 /* Container for main content */
 .container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 2rem;
+}
+
+/* Easter egg cursor trail */
+@keyframes cursorTrail {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
 }
 
 /* Typography Utilities */
@@ -64,4 +97,66 @@ h6 {
 p {
   line-height: 1.6;
   margin-bottom: 1.5rem;
+}
+
+/* Scrollbar styling for tech feel */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}
+
+/* Selection styling */
+::selection {
+  background-color: var(--secondary);
+  color: var(--background);
+}
+
+::-moz-selection {
+  background-color: var(--secondary);
+  color: var(--background);
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Link underline animation */
+a {
+  position: relative;
+}
+
+/* Code blocks styling */
+code {
+  font-family: "IBM Plex Mono", monospace;
+  background-color: var(--border);
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+}
+
+pre {
+  background-color: var(--border);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+pre code {
+  background: none;
+  padding: 0;
 }

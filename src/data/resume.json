@@ -1,0 +1,32 @@
+{
+  "experiences": [
+    {
+      "organization": "Ashley Furniture",
+      "role": "前端工程师",
+      "period": "2024.04 - 至今",
+      "location": "深圳",
+      "description": "无代码平台架构、AI 应用开发。"
+    },
+    {
+      "organization": "腾娱",
+      "role": "前端工程师",
+      "period": "2022.09 - 2024.04",
+      "location": "深圳",
+      "description": "QQ短视频运营平台、H5配置系统、AIGC 应用。性能优化与工程化实践。"
+    },
+    {
+      "organization": "分期乐",
+      "role": "前端工程师",
+      "period": "2020.07 - 2022.07",
+      "location": "深圳",
+      "description": "大数据可视化、微前端架构、H5、小程序、前端基建。"
+    },
+    {
+      "organization": "广州中医药大学",
+      "role": "医学信息工程",
+      "period": "2016.09 - 2020.06",
+      "location": "广州",
+      "description": "医学信息工程专业，计算机与医学交叉学科背景。"
+    }
+  ]
+}

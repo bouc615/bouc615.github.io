@@ -1,0 +1,99 @@
+.logoContainer {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  perspective: 500px;
+}
+
+.logo3D {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease-out;
+}
+
+.layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  transform: translate(-50%, -50%) translateZ(-30px);
+  background: radial-gradient(
+    circle,
+    rgba(16, 185, 129, 0.3) 0%,
+    rgba(168, 85, 247, 0.2) 50%,
+    transparent 70%
+  );
+  border-radius: 50%;
+  filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.logoContainer:hover .glow {
+  opacity: 1;
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+.logoContainer:hover .logo3D {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: perspective(500px) translateY(0px) rotateY(0deg);
+  }
+  50% {
+    transform: perspective(500px) translateY(-5px) rotateY(5deg);
+  }
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) translateZ(-30px) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateZ(-30px) scale(1.2);
+  }
+}
+
+/* Add shine effect on hover */
+.logoContainer::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 70%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.logoContainer:hover::before {
+  transform: translateX(100%);
+}

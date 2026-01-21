@@ -18,7 +18,7 @@ export interface PostData {
 // Helper to recursively get all markdown files
 function getAllMarkdownFiles(
   dirPath: string,
-  fileList: string[] = []
+  fileList: string[] = [],
 ): string[] {
   const files = fs.readdirSync(dirPath);
 
@@ -104,7 +104,10 @@ export async function getPostData(id: string) {
   const processedContent = await remark()
     .use(html)
     .process(matterResult.content);
-  const contentHtml = processedContent.toString();
+  let contentHtml = processedContent.toString();
+
+  // Remove the first h1 tag to avoid duplication with page title
+  contentHtml = contentHtml.replace(/<h1[^>]*>.*?<\/h1>/, "");
 
   // Determine category
   const relativePath = path.relative(postsDirectory, fullPath);

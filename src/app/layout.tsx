@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
+import EasterEggs from "@/components/EasterEggs";
 
 const ibmPlexMono = IBM_Plex_Mono({
   variable: "--font-ibm-plex-mono",
@@ -10,7 +11,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Bouc615's Blog",
+  title: "Chancey's Blog",
   description: "Personal blog and portfolio",
 };
 
@@ -20,13 +21,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="zh-CN">
       <body className={`${ibmPlexMono.variable}`}>
+        <EasterEggs />
         <div
           className="container"
           style={{ fontFamily: "var(--font-ibm-plex-mono)" }}
         >
-          <Navbar />
+          {/* <Navbar /> */}
           <main>{children}</main>
           <footer
             style={{
@@ -38,7 +40,7 @@ export default function RootLayout({
               fontSize: "0.9rem",
             }}
           >
-            © {new Date().getFullYear()} Bouc615. All rights reserved.
+            © {new Date().getFullYear()} Chancey. All rights reserved.
           </footer>
         </div>
       </body>

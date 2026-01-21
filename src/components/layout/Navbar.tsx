@@ -1,50 +1,36 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
-import { Moon, Sun } from "lucide-react";
+import { usePathname } from "next/navigation";
 import styles from "./Navbar.module.css";
+import Logo3D from "./Logo3D";
 
 export default function Navbar() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const pathname = usePathname();
 
   useEffect(() => {
-    // Check local storage or system preference
-    const savedTheme = localStorage.getItem("theme");
-    if (
-      savedTheme === "dark" ||
-      (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ) {
-      setTheme("dark");
-      document.documentElement.setAttribute("data-theme", "dark");
-    } else {
-      setTheme("light");
-      document.documentElement.setAttribute("data-theme", "light");
-    }
+    // Always set dark theme
+    document.documentElement.setAttribute("data-theme", "dark");
   }, []);
 
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
-    document.documentElement.setAttribute("data-theme", newTheme);
+  const handleResumeClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    // Only handle smooth scroll on homepage
+    if (pathname === "/") {
+      e.preventDefault();
+      const resumeSection = document.getElementById("resume");
+      if (resumeSection) {
+        resumeSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
   };
 
   return (
     <header className={styles.header}>
       <div className={styles.logoContainer}>
-        {/* Placeholder for Logo Image if user wants one */}
-        <div
-          style={{
-            width: 32,
-            height: 32,
-            background:
-              "linear-gradient(135deg, var(--secondary), var(--primary))",
-            borderRadius: 8,
-          }}
-        ></div>
-        <Link href="/" className={styles.logo}>
-          Bouc615
+        <Link href="/" className={styles.logoWrapper}>
+          <Logo3D />
+          <span className={styles.logo}>Chancy</span>
         </Link>
       </div>
 
@@ -52,20 +38,16 @@ export default function Navbar() {
         <Link href="/" className={styles.navLink}>
           About
         </Link>
-        <Link href="/blog" className={styles.navLink}>
-          Blog
+        <Link href="/publications" className={styles.navLink}>
+          Publications
         </Link>
-        <Link href="/resume" className={styles.navLink}>
-          Résumé
-        </Link>
-
-        <button
-          onClick={toggleTheme}
-          className={styles.themeToggle}
-          aria-label="Toggle theme"
+        <a
+          href={pathname === "/" ? "#resume" : "/#resume"}
+          className={styles.navLink}
+          onClick={handleResumeClick}
         >
-          {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
-        </button>
+          Résumé
+        </a>
       </nav>
     </header>
   );
